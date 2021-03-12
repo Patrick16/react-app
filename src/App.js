@@ -1,6 +1,6 @@
-import Header from "./components/HeaderBlock/Header";
-import Layout from "./components/LayoutBlock/Layout";
-import Footer from "./components/FooterBlock/Footer";
+import Header from "./components/HeaderBlock";
+import Layout from "./components/LayoutBlock";
+import Footer from "./components/FooterBlock";
 import React from "react";
 import Img from "./components/LayoutBlock/images/bg1.jpg";
 
