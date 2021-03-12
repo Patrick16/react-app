@@ -1,17 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/HeaderBlock/Header";
+import Layout from "./components/LayoutBlock/Layout";
+import Footer from "./components/FooterBlock/Footer";
+import React from "react";
+import Img from "./components/LayoutBlock/images/bg1.jpg";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hello world!
-        </p>
-      </header>
-    </div>
-  );
+const App =() =>{
+    return(
+        <>
+            <Header />
+            <Layout title="First layout" urlBg={Img}/>
+            <Layout title="Second layout" colorBg="#e2e2e2" />
+            <Layout title="Third layout" urlBg={Img}/>
+            <Footer />
+        </>);
 }
 
 export default App;
