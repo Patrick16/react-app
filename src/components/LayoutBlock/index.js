@@ -1,14 +1,13 @@
-import React from "react";
 import s from "./layout.module.css";
 
-const Layout =({title="Title", descr="Description", urlBg, colorBg}) =>{
-   const  backgroundStyle = {
-       backgroundImage: `url(${urlBg})`,
-       backgroundColor: colorBg
-   }
-    return(
+const Layout = ({title = "Title", urlBg, colorBg, children}) => {
+    const backgroundStyle = {
+        backgroundImage: `url(${urlBg})`,
+        backgroundColor: colorBg
+    }
+    return (
         <section
-            style={ backgroundStyle }
+            style={backgroundStyle}
             className={s.root}>
             <div className={s.wrapper}>
                 <article>
@@ -16,8 +15,8 @@ const Layout =({title="Title", descr="Description", urlBg, colorBg}) =>{
                         <h3>{title}</h3>
                         <span className={s.separator}></span>
                     </div>
-                    <div className={s.desc.full}>
-                        <p>{descr}</p>
+                    <div className={`${s.desc} ${s.full}`}>
+                        {children}
                     </div>
                 </article>
             </div>
