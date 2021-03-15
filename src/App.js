@@ -36,9 +36,11 @@ const App =() =>{
                             <PokemonCard
                                 key={item.id}
                                 name={item.name}
-                                type={item.type}
+                                img={item.img}
+                                id={item.id}
                                 values={item.values}
-                                img={item.img}/>)
+                                type={item.type}
+                            />)
                     }
                 </div>
             </Layout>
