@@ -4,8 +4,8 @@ import {useState} from "react";
 
 const MenuHeader = ({gotoHandler, initState}) => {
     const [currentState, setState] = useState(initState);
-    const navBarButtonHandler = (state) => {
-        setState(state);
+    const navBarButtonHandler = () => {
+        setState(prev => !prev);
     }
     const menuButtonHandler = (page) => {
         gotoHandler && gotoHandler(page);
