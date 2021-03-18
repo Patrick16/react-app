@@ -6,14 +6,15 @@ import PokemonCard from '../../PokemonCard';
 import Footer from '../../FooterBlock';
 import MenuHeader from '../../MenuHeader';
 
-const Home=({homeButtonHandler, initState})=>{
-    const gotoHandler=(page)=>{
+const Home = ({homeButtonHandler}) => {
+    const gotoHandler = (page) => {
         homeButtonHandler && homeButtonHandler(page);
     };
     return (
         <>
-            <MenuHeader gotoHandler={gotoHandler} initState={initState}/>
+            <MenuHeader gotoHandler={gotoHandler}/>
             <Header
+                onClickHandler={gotoHandler}
                 title="Pokemon Game"
                 descr="This is simple triple triad card game"
             />

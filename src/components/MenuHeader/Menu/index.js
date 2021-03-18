@@ -2,39 +2,49 @@ import cn from 'classnames';
 
 import s from './menu.module.css';
 
+const MENU = [
+    {
+        tittle: 'HOME',
+        to: '/#',
+    },
+    {
+        tittle: 'GAME',
+        to: '/#',
+    },
+    {
+        tittle: 'ABOUT',
+        to: '/#',
+    },
+    {
+        tittle: 'CONTACT',
+        to: '/#',
+    }
+];
 const Menu = ({gotoHandler, isActiveMenu}) => {
-    const style = isActiveMenu ? s.active : s.deactive;
-    const gotoHome=()=>{
+    const gotoHome = () => {
         gotoHandler && gotoHandler('home');
     };
-    const gotoGame=()=>{
+    const gotoGame = () => {
         gotoHandler && gotoHandler('game');
     };
     return (
-        <div className={cn(s.menuContainer, style)}>
+        <div className={cn(s.menuContainer,
+            {
+                [s.active]: isActiveMenu === true,
+                [s.deactive]: isActiveMenu === false
+            })}>
             <div className={s.overlay}/>
             <div className={s.menuItems}>
                 <ul>
-                    <li>
-                        <a href="#" onClick={gotoHome}>
-                            HOME
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" onClick={gotoGame}>
-                            GAME
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            ABOUT
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            CONTACT
-                        </a>
-                    </li>
+                    {
+                        MENU.map(({tittle, to}, index) => (
+                            <li key={index}>
+                                <a href={to}>
+                                    {tittle}
+                                </a>
+                            </li>
+                        ))
+                    }
                 </ul>
             </div>
         </div>
