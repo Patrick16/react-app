@@ -13,9 +13,9 @@ const NavBar = ({navBarButtonHandler, isActive, bgActive = false}) => {
                 <p className={s.brand}>
                     LOGO
                 </p>
-                <a className={cn(s.menuButton, styleButton)} onClick={handleMenuButton}>
+                <div className={cn(s.menuButton, styleButton)} onClick={handleMenuButton}>
                     <span/>
-                </a>
+                </div>
             </div>
         </nav>
     );

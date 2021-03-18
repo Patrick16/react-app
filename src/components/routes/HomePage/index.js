@@ -1,10 +1,7 @@
 import Header from '../../HeaderBlock';
 import Layout from '../../LayoutBlock';
+
 import Img from '../../LayoutBlock/images/bg1.jpg';
-import pokemons from '../../PokemonCard/pokemons.json';
-import PokemonCard from '../../PokemonCard';
-import Footer from '../../FooterBlock';
-import MenuHeader from '../../MenuHeader';
 
 const Home = ({homeButtonHandler}) => {
     const gotoHandler = (page) => {
@@ -12,7 +9,6 @@ const Home = ({homeButtonHandler}) => {
     };
     return (
         <>
-            <MenuHeader gotoHandler={gotoHandler}/>
             <Header
                 onClickHandler={gotoHandler}
                 title="Pokemon Game"
@@ -36,27 +32,8 @@ const Home = ({homeButtonHandler}) => {
                     color instead. </p>
             </Layout>
             <Layout
-                id="cards"
-                title="Cards"
-                colorBg="#e2e2e2">
-                <div className="flex">
-                    {
-                        pokemons.items.map((item) =>
-                            <PokemonCard
-                                key={item.id}
-                                name={item.name}
-                                img={item.img}
-                                id={item.id}
-                                values={item.values}
-                                type={item.type}
-                            />)
-                    }
-                </div>
-            </Layout>
-            <Layout
                 id="about"
-                title="Third layout" urlBg={Img}/>
-            <Footer/>
+                title="About" urlBg={Img}/>
         </>
     );
 }

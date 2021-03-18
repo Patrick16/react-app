@@ -1,19 +1,14 @@
 import Menu from "./Menu";
 import NavBar from "./NavBar";
-import {useState} from "react";
 
-const MenuHeader = ({gotoHandler, bgActive}) => {
-    const [currentState, setState] = useState(null);
+const MenuHeader = ({menuStateHandle, currentState, bgActive}) => {
     const navBarButtonHandler = () => {
-        setState(prev => !prev);
-    }
-    const menuButtonHandler = (page) => {
-        gotoHandler && gotoHandler(page);
+        menuStateHandle && menuStateHandle();
     }
     return (
         <>
             <NavBar navBarButtonHandler={navBarButtonHandler} isActive={currentState} bgActive={bgActive}/>
-            <Menu gotoHandler={menuButtonHandler} isActiveMenu={currentState}/>
+            <Menu isActiveMenu={currentState} closeMenuHandler={navBarButtonHandler}/>
         </>
     );
 };

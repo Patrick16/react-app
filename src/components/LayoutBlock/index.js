@@ -1,4 +1,5 @@
 import cn from 'classnames';
+
 import s from "./layout.module.css";
 
 const Layout = ({title = "Title", urlBg, colorBg, children}) => {
