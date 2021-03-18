@@ -10,10 +10,10 @@ const Game = () => {
     const history = useHistory();
 
     const onClickCard = (id) => {
-        changeCard(array =>
-        {
-            array.find(x => x.id === id).active = true;
-            return [...array];
+        changeCard(oldArr => {
+            const newArr = oldArr.map(i => Object.assign({}, i));
+            newArr.find(x => x.id === id).active = true;
+            return newArr;
         });
     }
     const gotoHomeButtonHandler = () => {
