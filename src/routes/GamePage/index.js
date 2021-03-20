@@ -1,8 +1,8 @@
 import {useHistory} from 'react-router-dom';
-import PokemonCard from "../../PokemonCard";
+import PokemonCard from "../../components/PokemonCard";
 import {useState} from 'react';
 
-import pokemons from "../../PokemonCard/pokemons.json";
+import pokemons from "../../components/PokemonCard/pokemons.json";
 import s from './game.module.css';
 
 const Game = () => {

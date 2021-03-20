@@ -1,11 +1,11 @@
-import Game from "./components/routes/GamePage";
-import Home from "./components/routes/HomePage";
-import About from "./components/routes/AboutPage";
-import Contact from "./components/routes/ContactPage";
+import Game from "./routes/GamePage";
+import Home from "./routes/HomePage";
+import About from "./routes/AboutPage";
+import Contact from "./routes/ContactPage";
 import {Route, Switch, Redirect, useLocation} from 'react-router-dom';
 import MenuHeader from "./components/MenuHeader";
 import Footer from "./components/FooterBlock";
-import NotFound from "./components/routes/NotFoundPage";
+import NotFound from "./routes/NotFoundPage";
 import cn from 'classnames';
 import {useState} from "react";
 

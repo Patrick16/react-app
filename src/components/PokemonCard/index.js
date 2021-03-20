@@ -1,4 +1,4 @@
-import cardBackSide from './images/card-back-side.jpg';
+import cardBackSide from '../../assets/card-back-side.jpg';
 import cn from 'classnames';
 
 import s from './pokemon.module.css';

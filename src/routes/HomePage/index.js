@@ -1,7 +1,7 @@
-import Header from '../../HeaderBlock';
-import Layout from '../../LayoutBlock';
+import Header from '../../components/HeaderBlock';
+import Layout from '../../components/LayoutBlock';
 
-import Img from '../../LayoutBlock/images/bg1.jpg';
+import Img from '../../assets/bg1.jpg';
 
 const Home = ({homeButtonHandler}) => {
     const gotoHandler = (page) => {
