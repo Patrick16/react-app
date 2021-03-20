@@ -16,15 +16,14 @@ const App = () => {
     const menuStateHandle = () => {
         setState(prev => !prev);
     }
-    const location =useLocation();
-    console.log('location', location.pathname);
-    let isHome=(location.pathname==='/' || location.pathname==='/home');
+    const location = useLocation();
+    let isHome = (location.pathname === '/' || location.pathname === '/home');
     return (
         <Switch>
             <Route>
                 <>
                     <MenuHeader bgActive={!isHome} currentState={currentState} menuStateHandle={menuStateHandle}/>
-                    <div className={cn(s.wrap, {[s.isHomePage]:isHome})}>
+                    <div className={cn(s.wrap, {[s.isHomePage]: isHome})}>
                         <Switch>
                             <Route path="/404" component={NotFound}/>
                             <Route path={["/", "/home"]} exact component={Home}/>
@@ -32,15 +31,15 @@ const App = () => {
                             <Route path="/about" component={About}/>
                             <Route path="/contact" component={Contact}/>
                             <Route render={
-                                ()=>(
+                                () => (
                                     <Redirect to="/404"/>
-                                    )}/>
+                                )}/>
                         </Switch>
                     </div>
                     <Footer/>
                 </>
             </Route>
-            <Route render={()=>{
+            <Route render={() => {
                 <Redirect to="/404"/>
             }}/>
         </Switch>
