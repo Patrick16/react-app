@@ -2,7 +2,7 @@ import Game from "./components/routes/GamePage";
 import Home from "./components/routes/HomePage";
 import About from "./components/routes/AboutPage";
 import Contact from "./components/routes/ContactPage";
-import {Route, Switch, useRouteMatch, Redirect} from 'react-router-dom';
+import {Route, Switch, Redirect, useLocation} from 'react-router-dom';
 import MenuHeader from "./components/MenuHeader";
 import Footer from "./components/FooterBlock";
 import NotFound from "./components/routes/NotFoundPage";
@@ -16,13 +16,15 @@ const App = () => {
     const menuStateHandle = () => {
         setState(prev => !prev);
     }
-    const match = useRouteMatch("/");
+    const location =useLocation();
+    console.log('location', location.pathname);
+    let isHome=(location.pathname==='/' || location.pathname==='/home');
     return (
         <Switch>
             <Route>
                 <>
-                    <MenuHeader bgActive={!match.isExact} currentState={currentState} menuStateHandle={menuStateHandle}/>
-                    <div className={cn(s.wrap, {[s.isHomePage]:match.isExact})}>
+                    <MenuHeader bgActive={!isHome} currentState={currentState} menuStateHandle={menuStateHandle}/>
+                    <div className={cn(s.wrap, {[s.isHomePage]:isHome})}>
                         <Switch>
                             <Route path="/404" component={NotFound}/>
                             <Route path={["/", "/home"]} exact component={Home}/>

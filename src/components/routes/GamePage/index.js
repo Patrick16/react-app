@@ -10,11 +10,10 @@ const Game = () => {
     const history = useHistory();
 
     const onClickCard = (id) => {
-        changeCard(oldArr => {
-            const newArr = oldArr.map(i => Object.assign({}, i));
-            newArr.find(x => x.id === id).active = true;
-            return newArr;
-        });
+        changeCard(prevState =>
+            prevState.map(item => item.id === id
+                ? {...item, active: !item.active}
+                : item))
     }
     const gotoHomeButtonHandler = () => {
         history.push('/');
