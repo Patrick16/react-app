@@ -1,32 +1,30 @@
 import cn from 'classnames';
+import {Link} from 'react-router-dom';
 
 import s from './menu.module.css';
 
 const MENU = [
     {
         tittle: 'HOME',
-        to: '/#',
+        to: '/',
     },
     {
         tittle: 'GAME',
-        to: '/#',
+        to: '/game',
     },
     {
         tittle: 'ABOUT',
-        to: '/#',
+        to: '/about',
     },
     {
         tittle: 'CONTACT',
-        to: '/#',
+        to: '/contact',
     }
 ];
-const Menu = ({gotoHandler, isActiveMenu}) => {
-    const gotoHome = () => {
-        gotoHandler && gotoHandler('home');
-    };
-    const gotoGame = () => {
-        gotoHandler && gotoHandler('game');
-    };
+const Menu = ({isActiveMenu, closeMenuHandler}) => {
+    const closeMenu=()=>{
+        closeMenuHandler && closeMenuHandler();
+    }
     return (
         <div className={cn(s.menuContainer,
             {
@@ -39,9 +37,9 @@ const Menu = ({gotoHandler, isActiveMenu}) => {
                     {
                         MENU.map(({tittle, to}, index) => (
                             <li key={index}>
-                                <a href={to}>
+                                <Link to={to} onClick={closeMenu}>
                                     {tittle}
-                                </a>
+                                </Link>
                             </li>
                         ))
                     }
