@@ -10,38 +10,39 @@ const Game = () => {
     const [isCardAdded, addCard] = useState(false);
     const history = useHistory();
 
-    const GetCardsFromDB = () => {
+    const getCardsFromDB = () => {
         database.ref('pokemons').once('value', (snapshot) => {
             changeCard(snapshot.val());
         });
     }
-    const SaveCardToDB = (key, card) => {
-        database.ref('pokemons/' + key).set(card);
+    const saveCardToDB = (key, card) => {
+        database.ref('pokemons/' + key).set(card).then(
+            () => addCard(prev => !prev));
     }
-    const DeleteCardFromDB = (key) => {
-        database.ref('pokemons/' + key).remove();
+    const deleteCardFromDB = (key) => {
+        database.ref('pokemons/' + key).remove().then(
+            () => addCard(prev => !prev));
     }
 
 
-    const GetRandomCard = () => {
-        const array = Object.entries(cards);
+    const getRandomCard = () => {
+        const array = Object.values(cards);
         const index = Math.floor(Math.random() * Math.floor(array.length));
-        return array[index][1];
+        return array[index];
     }
-    const GetLastCardKey = () => {
-        const array = Object.entries(cards);
-        return array[array.length - 1][0];
+    const getLastCardKey = () => {
+        const array = Object.keys(cards);
+        return array[array.length - 1];
     }
 
     const onAddCard = () => {
         const newKey = database.ref().child('pokemons').push().key;
-        SaveCardToDB(newKey, GetRandomCard());
-        addCard(prev => !prev);
+        saveCardToDB(newKey, getRandomCard());
+        ;
     }
     const onRemoveCard = () => {
         const newKey = database.ref().child('pokemons').push().key;
-        DeleteCardFromDB(GetLastCardKey());
-        addCard(prev => !prev);
+        deleteCardFromDB(getLastCardKey());
     }
 
     const onClickCard = (id) => {
@@ -52,7 +53,7 @@ const Game = () => {
                     pokemon.active = !pokemon.active;
                 }
                 acc[item[0]] = pokemon;
-                SaveCardToDB(item[0], pokemon);
+                saveCardToDB(item[0], pokemon);
                 return acc;
             }, {});
         });
@@ -63,7 +64,7 @@ const Game = () => {
     }
 
     useEffect(() => {
-        GetCardsFromDB();
+        getCardsFromDB();
     }, [isCardAdded]);
 
     return (
