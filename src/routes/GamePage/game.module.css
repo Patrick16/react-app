@@ -33,6 +33,7 @@
     color: #fafafa;
     line-height: 65px;
     margin: 20px;
+    text-align: center;
 }
 
 button,
@@ -58,6 +59,9 @@ button:visited {
     color: #fafafa;
     font-weight: bold;
     outline: none;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
 button:hover {
