@@ -11,9 +11,9 @@ const BoardPage = () => {
             <div className={s.root}>
                 <div className={s.playerOne}>
                     {
-                        Object.entries(pokemonContext.selectedCards).map(([key, item]) => {
+                        pokemonContext.selectedPokemon.map(item => {
                             return <PokemonCard
-                                key={key}
+                                key={item.id}
                                 className={s.card}
                                 minimize={true}
                                 name={item.name}

@@ -73,6 +73,7 @@ button:disabled:hover {
 }
 
 .card {
-    max-width: 268px;
-    max-height: 388px;
+    width: 268px;
+    height: 388px;
+    margin: 20px;
 }
