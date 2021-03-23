@@ -1,7 +1,8 @@
 import cardBackSide from '../../assets/card-back-side.jpg';
 import cn from 'classnames';
-
+import {useContext} from 'react';
 import s from './pokemon.module.css';
+import {PokemonContext} from "../../context/pokemonContext";
 
 const PokemonCard = ({name, img, id, values, type, isActive, onClickCard}) => {
     const handleClick = () => {
