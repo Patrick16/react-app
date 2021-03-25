@@ -1,10 +1,8 @@
-import cardBackSide from '../../assets/card-back-side.jpg';
 import cn from 'classnames';
-import {useContext} from 'react';
-import s from './pokemon.module.css';
-import {PokemonContext} from "../../context/pokemonContext";
 
-const PokemonCard = ({minimize, className, name, img, id, values, type, isActive, isSelected, onClickCard}) => {
+import s from './pokemon.module.css';
+
+const PokemonCard = ({minimize, className, name, img, id, values, type, isActive, isSelected, possession, onClickCard}) => {
     const handleClick = () => {
         onClickCard && onClickCard(id);
     }
@@ -12,7 +10,7 @@ const PokemonCard = ({minimize, className, name, img, id, values, type, isActive
         <div className={cn(className, s.pokemonCard, {[s.active]: isActive}, {[s.selected]:isSelected})} onClick={handleClick}>
             <div className={s.cardFront}>
                 <div className={cn(s.wrap, s.front)}>
-                    <div className={cn(s.pokemon, s[type])}>
+                    <div className={cn(s.pokemon, s[type], s[possession])}>
                         <div className={s.values}>
                             <div className={cn(s.count, s.top)}>{values.top}</div>
                             <div className={cn(s.count, s.right)}>{values.right}</div>
