@@ -17,19 +17,17 @@ const BoardPage = () => {
     })));
     const [player2, setPlayer2] = useState([]);
     const [chosenCard, chooseCard] = useState(null);
-    console.log('chosencard',chosenCard);
-    console.log('board',board);
 
-    const countWinner=(board,player1,player2)=>{
-        let points1=player1.length;
-        let points2=player2.length;
-        board.forEach(x=>{
-            if(x.card.possession==='blue')
+    const countWinner = (board, player1, player2) => {
+        let points1 = player1.length;
+        let points2 = player2.length;
+        board.forEach(x => {
+            if (x.card.possession === 'blue')
                 points1++;
-            if(x.card.possession==='red')
+            if (x.card.possession === 'red')
                 points2++;
         })
-        return [points1,points2];
+        return [points1, points2];
     }
     const onCellClick = async (position) => {
         if (chosenCard) {
@@ -58,9 +56,10 @@ const BoardPage = () => {
         }
     }
 
-     if(pokemonContext.selectedPokemon.length===0){
-         history.replace('/game');
-     }
+    if (pokemonContext.selectedPokemon.length != 5) {
+        alert('You should take 5 cards');
+        history.replace('/game');
+    }
 
     useEffect(async () => {
         const boardResponse = await fetch('https://reactmarathon-api.netlify.app/api/board');
@@ -72,28 +71,28 @@ const BoardPage = () => {
         setPlayer2(() => playerJson.data.map(item => ({
             ...item,
             possession: 'red'
-        })))
+        })));
+        pokemonContext.takePlayersPokemons([
+            player1,
+            playerJson.data.map(item => ({...item}))
+        ]);
     }, []);
 
-    useEffect(()=>{
-        if(steps === 9){
-            const [points1,points2] = countWinner(board,player1,player2);
-            if(points1>points2){
+    useEffect(() => {
+        if (steps === 9) {
+            const [points1, points2] = countWinner(board, player1, player2);
+            if (points1 > points2) {
                 alert('Player 1 win');
-            }else if(points2>points1){
+                history.replace('/game/finish');
+            } else if (points2 > points1) {
                 alert('Player 2 win');
-            }else {
+                history.replace('/game');
+            } else {
                 alert('Draw');
+                history.replace('/game');
             }
-
-            const boardCards =board.map(item=>item.card);
-
-            pokemonContext.takePlayersPokemons(
-                [player1.concat(boardCards.filter(x=>x.possession === 'blue')),
-                    player2.concat(boardCards.filter(x=>x.possession === 'red'))]);
-            history.push('/game/finish');
         }
-    },[steps]);
+    }, [steps]);
 
     return (
         <div className={s.root}>

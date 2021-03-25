@@ -4,14 +4,14 @@ import {useState} from "react";
 import cn from 'classnames';
 
 const PlayerBoard = ({player, cards, onChooseCard}) => {
-    const [isSelected, selectCard] = useState(null)
+    const [selectedCard, selectCard] = useState(null)
     return (
         <>
             {
                 cards.map(item => (
                     <div
                         className={cn(s.cardBoard, {
-                            [s.selected] : isSelected === item.id
+                            [s.selected] : selectedCard === item.id
                         })}
                           onClick={()=>{
                               selectCard(item.id);

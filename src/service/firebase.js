@@ -25,7 +25,7 @@ class Firebase {
     postPokemon = (key, pokemon, callBack) => {
         this.database.ref('pokemons/' + key).set(pokemon).then(() => callBack());
     }
-    addPokemon = (key, pokemon, callBack) => {
+    addPokemon = (pokemon, callBack) => {
         const newKey = this.database.ref().child('pokemons').push().key;
         this.postPokemon(newKey, pokemon, callBack);
     }
