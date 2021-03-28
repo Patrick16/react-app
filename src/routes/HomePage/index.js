@@ -1,11 +1,13 @@
 import Header from '../../components/HeaderBlock';
 import Layout from '../../components/LayoutBlock';
-
+import {useHistory} from 'react-router-dom';
 import Img from '../../assets/bg1.jpg';
 
-const Home = ({homeButtonHandler}) => {
-    const gotoHandler = (page) => {
-        homeButtonHandler && homeButtonHandler(page);
+
+const Home = () => {
+    const history = useHistory();
+    const gotoHandler = () => {
+                history.push('/game');
     };
     return (
         <>

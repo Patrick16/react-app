@@ -1,53 +1,55 @@
 import PokemonCard from "../../../../components/PokemonCard";
-import {useContext, useEffect, useState} from 'react';
-import {useHistory, useRouteMatch} from 'react-router-dom';
-import {PokemonContext} from "../../../../context/pokemonContext";
-import {FireBaseContext} from "../../../../context/fireBaseContext";
+import {useEffect, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 
 import s from './start.module.css';
+import {useDispatch, useSelector} from "react-redux";
+import {
+    fetchPokemonsReject,
+    getPokemonsAsync,
+    loadedPokemons, selectedPokemons,
+    selectPokemons
+} from "../../../../store/pokemon";
 
 const StartPage = () => {
-    const pokemonContext = useContext(PokemonContext);
+    const pokemonsRedux = useSelector(loadedPokemons);
+    const player1 = useSelector(selectedPokemons);
+    const dispatch = useDispatch();
+    const [cards, setPokemons] = useState([]);
     const history = useHistory();
+    console.log('pokemonsRedux', pokemonsRedux);
+    console.log('pokemonsCards', cards);
+
     const onStartClick = () => {
-        history.push('/game/board')
+        dispatch(selectPokemons(cards.filter(x => x.isSelected)));
+        history.push('/game/board');
     }
     const onHomeClick = () => {
         history.push('/');
     }
-    const firebaseContext = useContext(FireBaseContext);
-    const [cards, setPokemons] = useState({});
-
-    const copyObject = (source, callBack) => {
-        return Object.entries(source).reduce((acc, item) => {
-            const pokemon = {...item[1]};
-            callBack(pokemon);
-            acc[item[0]] = pokemon;
-            return acc;
-        }, {});
-    }
-    const getCardsFromDB = async () => {
-        const response = await firebaseContext.getPokemonsOnce();
-        setPokemons(copyObject(response, pokemon => {
-            pokemon.active = true;
-        }))
-    }
-
     const selectCard = (id) => {
-        setPokemons(prev => copyObject(prev, pokemon => {
-            if (pokemon.id === id) {
-                pokemon.isSelected = !pokemon.isSelected;
-            }
-        }));
+        setPokemons(prev => {
+            prev.map(card => {
+                if(card.id===id){
+                    card.isSelected=!card.isSelected
+                }
+            })
+            return [...prev];
+        });
     }
 
     useEffect(async () => {
-        await getCardsFromDB();
+        dispatch(fetchPokemonsReject);
+        await dispatch(getPokemonsAsync());
     }, []);
 
     useEffect(() => {
-        pokemonContext.selectPokemon(Object.values(cards).filter(x => x.isSelected));
-    }, [cards]);
+        setPokemons(pokemonsRedux.map(x=>({...x})));
+    }, [pokemonsRedux]);
+
+    /*    useEffect(() => {
+            pokemonContext.selectPokemon(Object.values(cards).filter(x => x.isSelected));
+        }, [cards]);*/
 
     return (
         <>
@@ -59,9 +61,9 @@ const StartPage = () => {
                 </div>
                 <div className={s.flex}>
                     {
-                        Object.entries(cards).map(([key, item]) => {
+                        cards.map((item) => {
                             return <PokemonCard
-                                key={key}
+                                key={item.id}
                                 minimize={false}
                                 className={s.card}
                                 name={item.name}

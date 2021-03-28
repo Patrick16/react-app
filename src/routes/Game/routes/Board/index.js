@@ -1,17 +1,19 @@
-import {PokemonContext} from "../../../../context/pokemonContext";
 import PokemonCard from "../../../../components/PokemonCard";
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useHistory} from 'react-router-dom';
 
 import s from './style.module.css';
 import PlayerBoard from "../../../../components/PlayerBoard";
+import {useDispatch, useSelector} from "react-redux";
+import {selectedPokemons, takeOpponentPokemons} from "../../../../store/pokemon";
 
 const BoardPage = () => {
-    const pokemonContext = useContext(PokemonContext);
     const history = useHistory();
     const [board, setBoard] = useState([]);
     const [steps, setSteps] = useState(0);
-    const [player1, setPlayer1] = useState(() => pokemonContext.selectedPokemon.map(item => ({
+    const disaptch = useDispatch();
+    const player1Pokemons = useSelector(selectedPokemons);
+    const [player1, setPlayer1] = useState(() => player1Pokemons.map(item => ({
         ...item,
         possession: 'blue'
     })));
@@ -56,7 +58,7 @@ const BoardPage = () => {
         }
     }
 
-    if (pokemonContext.selectedPokemon.length != 5) {
+    if (player1Pokemons.length !== 5) {
         alert('You should take 5 cards');
         history.replace('/game');
     }
@@ -72,10 +74,10 @@ const BoardPage = () => {
             ...item,
             possession: 'red'
         })));
-        pokemonContext.takePlayersPokemons([
-            player1,
-            playerJson.data.map(item => ({...item}))
-        ]);
+        if (player1Pokemons.length == 5) {
+            disaptch(takeOpponentPokemons(
+                playerJson.data.map(item => ({...item}))));
+        }
     }, []);
 
     useEffect(() => {
