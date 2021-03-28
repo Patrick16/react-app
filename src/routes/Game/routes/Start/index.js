@@ -1,5 +1,5 @@
 import PokemonCard from "../../../../components/PokemonCard";
-import {useContext,useEffect,useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {useHistory, useRouteMatch} from 'react-router-dom';
 import {PokemonContext} from "../../../../context/pokemonContext";
 import {FireBaseContext} from "../../../../context/fireBaseContext";
@@ -29,24 +29,24 @@ const StartPage = () => {
     const getCardsFromDB = async () => {
         const response = await firebaseContext.getPokemonsOnce();
         setPokemons(copyObject(response, pokemon => {
-            pokemon.active=true;
+            pokemon.active = true;
         }))
     }
 
     const selectCard = (id) => {
-        setPokemons(prev=>copyObject(prev, pokemon => {
+        setPokemons(prev => copyObject(prev, pokemon => {
             if (pokemon.id === id) {
                 pokemon.isSelected = !pokemon.isSelected;
-            }}));
+            }
+        }));
     }
-
 
     useEffect(async () => {
         await getCardsFromDB();
     }, []);
 
     useEffect(() => {
-        pokemonContext.selectPokemon(Object.values(cards).filter(x=>x.isSelected));
+        pokemonContext.selectPokemon(Object.values(cards).filter(x => x.isSelected));
     }, [cards]);
 
     return (

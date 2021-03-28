@@ -8,11 +8,18 @@ import {useState, useEffect, useContext} from 'react';
 
 const GamePage = () => {
     const [selectedPokemon,selectPokemon] = useState([]);
+    const [playersPokemons,takePlayersPokemons] = useState([[],[]]);
     const match = useRouteMatch();
 
 
     return (
-        <PokemonContext.Provider value={{selectedPokemon,selectPokemon}}>
+        <PokemonContext.Provider value={
+            {
+                selectedPokemon,
+                selectPokemon,
+                playersPokemons,
+                takePlayersPokemons,
+            }}>
             <Switch>
                 <Route path={`${match.path}/`} exact component={StartPage}/>
                 <Route path={`${match.path}/board`} component={BoardPage}/>
