@@ -1,25 +1,20 @@
-import {PokemonContext} from "../../../../context/pokemonContext";
 import {FireBaseContext} from "../../../../context/fireBaseContext";
 import {useContext, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import PokemonCard from "../../../../components/PokemonCard";
 import s from "./finish.module.css";
+import {useSelector} from "react-redux";
+import {opponentPokemons, selectedPokemons} from "../../../../store/pokemon";
 
 const FinishPage = () => {
-    const context = useContext(PokemonContext);
     const database = useContext(FireBaseContext);
-    const [card, chooseCard] = useState({});
-    const [cardsToChoose, changeCard] = useState(
-        () => context.playersPokemons[1].map(i => ({...i})));
+    const player1=useSelector(selectedPokemons);
+    const player2=useSelector(opponentPokemons);
+    const [card, chooseCard] = useState(null);
 
-    const history = useHistory();
-    const onChooseCard = () => {
-        if(card){
-            card.isSelected=false;
-            database.addPokemon(card, ()=>{});
-        }
-        history.replace('/game');
-    }
+    const [cardsToChoose, changeCard] = useState(
+        () => player2.map(i => ({...i})));
+
     const selectCard = (id) => {
         changeCard(cards => {
             cards.map(card => {
@@ -38,12 +33,20 @@ const FinishPage = () => {
         })
     }
 
+    const history = useHistory();
+    const onChooseCard = () => {
+        if(card){
+            card.isSelected=false;
+            database.addPokemon(card);
+        }
+        history.replace('/game');
+    }
     return (
         <>
             <div>
                 <div className={s.flex}>
                     {
-                        context.playersPokemons[0].map(item => {
+                        player1.map(item => {
                             return <PokemonCard
                                 key={item.id}
                                 className={s.card}

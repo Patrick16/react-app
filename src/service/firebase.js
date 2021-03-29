@@ -23,13 +23,13 @@ class Firebase {
         return await this.database.ref('pokemons').once('value').then(snapshot => snapshot.val());
     }
     postPokemon = (key, pokemon, callBack) => {
-        this.database.ref('pokemons/' + key).set(pokemon).then(() => callBack());
+        this.database.ref('pokemons/' + key).set(pokemon).then(() => callBack && callBack());
     }
     addPokemon = (pokemon, callBack) => {
         const newKey = this.database.ref().child('pokemons').push().key;
         this.postPokemon(newKey, pokemon, callBack);
     }
 }
+const FireBaseObject= new Firebase();
 
-
-export default Firebase;
+export default FireBaseObject;

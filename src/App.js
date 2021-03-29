@@ -11,7 +11,7 @@ import {useState} from "react";
 
 import s from './app.module.css';
 import {FireBaseContext} from "./context/fireBaseContext";
-import Firebase from  './service/firebase';
+import FireBaseObject from  './service/firebase';
 
 const App = () => {
     const [currentState, setState] = useState(false);
@@ -21,7 +21,7 @@ const App = () => {
     const location = useLocation();
     let isHome = (location.pathname === '/' || location.pathname === '/home');
     return (
-        <FireBaseContext.Provider value={new Firebase()}>
+        <FireBaseContext.Provider value={FireBaseObject}>
             <Switch>
                 <Route>
                     <>

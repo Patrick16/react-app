@@ -35,8 +35,8 @@
     }
 }
 
-.pokemonCard.selected {
-    margin-top: -40px;
+.pokemonCard.selected .wrap.front::after {
+    border: 12px solid slateblue;
 }
 
 .cardFront,
